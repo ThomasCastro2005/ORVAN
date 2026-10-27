@@ -1,14 +1,15 @@
-import { useEffect, useRef } from 'react';
-import { useToast } from '../../context/toast/useToast.js';
-import { formatPrice } from '../../utils/format.js';
-import WhatsAppButton from '../contact/WhatsAppButton.jsx';
-import Icon from '../ui/Icon.jsx';
-import ProductGallery from './ProductGallery.jsx';
+import { useEffect, useRef } from "react";
+import { useToast } from "../../context/toast/useToast.js";
+import { formatPrice } from "../../utils/format.js";
+import WhatsAppButton from "../contact/WhatsAppButton.jsx";
+import Icon from "../ui/Icon.jsx";
+import ProductGallery from "./ProductGallery.jsx";
 
 /** "Teclop PWTL-20 · 20.000 mAh" y, si la marca no aparece ya en el subtítulo, " · Marca X". */
 function buildSubtitle({ subtitle, brand }) {
-  const brandText = brand && !subtitle.includes(brand) ? `Marca ${brand}` : null;
-  return [subtitle, brandText].filter(Boolean).join(' · ');
+  const brandText =
+    brand && !subtitle.includes(brand) ? `Marca ${brand}` : null;
+  return [subtitle, brandText].filter(Boolean).join(" · ");
 }
 
 /**
@@ -22,10 +23,10 @@ export default function ProductModal({ product, category, onClose }) {
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog.open) dialog.showModal();
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     setToastContainer(dialog); // el aviso debe verse por encima del modal
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
       setToastContainer(null);
     };
   }, [setToastContainer]);
@@ -44,7 +45,12 @@ export default function ProductModal({ product, category, onClose }) {
       }}
     >
       <div className="modal__inner">
-        <button className="icon-btn modal__close" type="button" aria-label="Cerrar" onClick={close}>
+        <button
+          className="icon-btn modal__close"
+          type="button"
+          aria-label="Cerrar"
+          onClick={close}
+        >
           <Icon name="close" />
         </button>
 
@@ -56,7 +62,9 @@ export default function ProductModal({ product, category, onClose }) {
               <Icon name={category.icon} size="sm" />
               {category.title}
             </span>
-            <h2 className="modal__title" id="modal-title">{product.name}</h2>
+            <h2 className="modal__title" id="modal-title">
+              {product.name}
+            </h2>
             {subtitle && <p className="modal__subtitle">{subtitle}</p>}
           </div>
 
@@ -87,14 +95,16 @@ export default function ProductModal({ product, category, onClose }) {
             </div>
           )}
 
-          {product.specsSource && <p className="modal__source">{product.specsSource}</p>}
+          {product.specsSource && (
+            <p className="modal__source">{product.specsSource}</p>
+          )}
 
           <div className="modal__buy">
             <div>
-              <p className="price">
+              {/* <p className="price">
                 <small>Precio</small>
                 {formatPrice(product.price)}
-              </p>
+              </p> */}
               <p className="sku">REF. {product.id}</p>
             </div>
             <WhatsAppButton product={product} />
